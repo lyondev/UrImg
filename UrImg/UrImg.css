@@ -1,0 +1,68 @@
+/* CSS declarations go here */
+
+#images {
+    display: inline;
+    
+}
+
+#images img {
+    min-height: 200px;
+    max-height: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    margin-bottom: 4px;
+}
+
+#singleImage {
+    margin: auto;
+}
+
+body {
+    background-color: #000000;
+    color: white;
+}
+
+.navbar {
+    background-color: #565656;
+    
+}
+
+.navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a {
+    color: white;
+}
+.nav {
+    color: #000000;
+}
+
+#submitComment {
+    margin-top: 5px;
+}
+
+textarea {
+    resize: none;
+}
+
+.comment {
+    display: inline;
+    clear: both;
+}
+
+.modal-content {
+    background-color: #565656;
+}
+
+#file {
+    margin-left: 5px;
+}
+
+.title {
+    display: inline;
+}
+
+#delete {
+    margin-top: 5px;
+}
+
+#closeModal {
+    margin-top: 5px;
+}

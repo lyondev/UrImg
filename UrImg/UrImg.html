@@ -1,0 +1,182 @@
+<template name="layout">
+ <body>
+    <header>
+      {{> navbar}}
+    </header>
+    {{> yield}}
+  </body>
+</template>
+
+<template name="navbar">
+  <div class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="/">UriMg</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse">
+        {{> navitems}}
+		<ul class="nav navbar-nav navbar-right">
+			{{> loginButtons}} <!-- here -->
+		</ul>
+	</div>
+  </div>
+</template>
+
+<template name="navitems">
+  {{ #if currentuser }}
+    <ul class="nav navbar-nav navbar-left">
+      <li><a href="/MyImgs">My Imgs</a></li>
+      <!--<li><a href="/Random">Random Imgs</a></li>-->
+	  <li><a href="#" id="upload">Upload</a></li>
+    </ul>        
+  {{/if}}
+</template>
+<template name="hello">
+ <div id="dropzone" class="dropzone">
+  {{> about}}
+  {{> contact}}
+ </div>
+</template>
+
+<template name="about">
+  <h1> About Us </h1>
+  <p>This page was designed to clone Imgur. It was a group project designed by Kevin Riehl, Josh Lyon, David Duke, and Chris Barbour.</p>
+  
+</template>
+
+<template name="contact">
+ 
+  <h1> Contact Us </h1>
+  <ul>
+   <li> Email: UrImgSupport@gmail.com</li>
+  </ul>
+</template>
+
+<template name="myImages">
+  <div class="imageView text-center">
+    {{#each images}}
+      <div id="images" class="images">
+        <a href="{{this.url store='images'}}" id="{{this.url store='images'}}"><img src="{{this.url store='thumbs'}}" alt="" class="img-responsive img-thumbnail" /></a>
+      </div>
+    {{/each}}
+  </div>
+  <!--<button id="delete" value="delete">Delete Images</button>-->
+</template>
+
+<template name="homepage">
+  <div class="imageView text-center">
+    {{#each images}}
+      <div id="images" class="text-center">
+        <a href="{{this.url store='images'}}" id="{{this.url store='images'}}"><img src="{{this.url store='thumbs'}}" alt="" class="img-responsive img-thumbnail" /></a>
+	   </div>
+    {{/each}}
+  </div>
+  <!--<button id="delete" value="delete">Delete Images</button>-->
+  {{> about}}
+</template>
+
+<template name="uploadModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+			  <div class="modal-header">
+					<input type="submit" id="uploadImg" value="Upload" class="btn btn-success pull-left">
+                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+			  </div>
+                <div id="dropzone" class="modal-body text-center">
+                    <h1><p id="dropZone">Drag images here to upload.</p></h1>
+                </div>
+                <div class="modal-footer form-inline form-group">
+					
+					<input type="text" id="title" name="title" class="form-control pull-left" placeholder="Image Title">
+					<input type="file" id="file" class="btn btn-primary filestyle pull-right">
+					
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="imageModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+			 <div class="modal-header text-center">			  
+			  <h3 class="text-center title">{{#each title}}{{this.title}}{{/each}}</h3>
+			 </div>
+                <div class="modal-body pagination-centered">
+                    <img src="{{img}}" alt="" class="img-responsive text-center" id="singleImage" />
+                </div>
+
+                <div class="modal-footer">
+				 {{#if currentuser}}
+				  <form>
+				   <input type="text" rows="4" class="form-control" name="comment" id="comment">
+				   <input id="submitComment" type="submit" class="btn btn-success pull-right">
+				  </form>
+				 {{/if}}
+				 <input type="button" style="margin-top: 5px;" class="btn btn-danger pull-left" data-dismiss="modal" value="Close">
+                </div>
+				  <div class="comment">
+				  {{#each comment}}
+				   <hr>
+				   <h4><p>{{this.comment}}</p></h4>
+				   <h6><p>By - {{this.user}}</p></h6>
+				   <hr>
+				  {{/each}}
+				  </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="personalImageModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+			 <div class="modal-header text-center">
+			  <h3 class="text-center title">{{#each title}}{{this.title}}{{/each}}</h3>
+			 </div>
+
+                <div class="modal-body pagination-centered">
+                    <img src="{{img}}" alt="" class="img-responsive text-center" id="singleImage" />
+                </div>
+
+                <div class="modal-footer">
+				 {{#if currentuser}}
+				  <form class="form-horizontal">
+				   <input type="text" rows="4" class="form-control" name="comment" id="comment">
+				   <input id="submitComment" type="submit" class="btn btn-success pull-right">
+				  </form>
+				 {{/if}}
+				 <input type="button" id="delete" class="btn btn-danger pull-left" value="Delete Image">
+				 <input type="button" id="closeModal" class="btn btn-danger pull-left" value="Close" data-dismiss="modal">
+                </div>
+				<div class="comment">
+				 {{#each comment}}
+				  <hr>
+				  <h4><p>{{this.comment}}</p></h4>
+				  <h6><p>By - {{this.user}}</p></h6>
+				  <hr>
+				 {{/each}}
+				</div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="Random">
+  <div class="imageView">
+      <div id="image" class="text-center">
+        <img src="{{image.url store='images'}}" alt="" class="img-responsive img-thumbnail" />
+      </div>
+  </div>
+</template>
